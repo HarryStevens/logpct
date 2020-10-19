@@ -1,0 +1,25 @@
+{
+  "name": "logpct",
+  "version": "0.0.1",
+  "description": "A percent status logger for Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarryStevens/logpct.git"
+  },
+  "keywords": [
+    "Node",
+    "percent",
+    "log",
+    "status"
+  ],
+  "author": "Harry Stevens",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HarryStevens/logpct/issues"
+  },
+  "homepage": "https://github.com/HarryStevens/logpct#readme"
+}
