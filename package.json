@@ -1,6 +1,6 @@
 {
   "name": "logpct",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A percent status logger for Node.js",
   "type": "module",
   "exports": "./index.js",
