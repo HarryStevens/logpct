@@ -36,7 +36,7 @@ for (let i = 1; i <= total; i++) {
 ```
 
 ```
- 76%|████████████████████████                | 76/100 [00:33<00:10, 2.30%/s]
+ 76%|████████████████████████                | 456/500 [00:33<00:10, 2.30%/s]
 ```
 
 ### With a description
@@ -49,7 +49,7 @@ for (let i = 1; i <= total; i++) {
 ```
 
 ```
-Downloading:  76%|██████████████████          | 76/100 [00:33<00:10, 2.30%/s]
+Downloading:  76%|██████████████████          | 456/500 [00:33<00:10, 2.30%/s]
 ```
 
 The progress bar automatically adapts its width to fit your terminal. When `percentage` reaches 100, a newline is printed so subsequent output appears on a fresh line. A new session starts automatically whenever `percentage` drops below the previously logged value.
