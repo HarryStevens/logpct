@@ -1,25 +1,63 @@
 # logpct
-A percent status logger for Node.js.
+
+A tqdm-style progress bar for Node.js.
 
 ## Installation
+
 ```bash
-npm i logpct -S
+npm i logpct
 ```
+
+> **Note:** logpct is ESM-only and requires Node 18+.
 
 ## Usage
+
 ```js
-const logpct = require("logpct");
-
-const length = 1e6;
-Array.from({ length }).forEach((d, i) => {
-  
-  const pct = (i + 1) / length * 100;
-
-  logpct(
-    pct, // The percentage to log (required; should be a number between 0 and 100)
-    20, // The width of the status bar (optional; defaults to 20 characters)
-    `\t${pct.toFixed(1)}%` // The message to display next to the status bar (optional; defaults to what you see here)
-  );
-
-});
+import logpct from "logpct";
 ```
+
+### `logpct(percentage, description?)`
+
+| Parameter     | Type   | Required | Description                               |
+| ------------- | ------ | -------- | ----------------------------------------- |
+| `percentage`  | number | yes      | Progress value between 0 and 100.         |
+| `description` | string | no       | Label prepended to the bar when provided. |
+
+### Basic
+
+```js
+import logpct from "logpct";
+
+const total = 500;
+for (let i = 1; i <= total; i++) {
+  await doWork(i);
+  logpct((i / total) * 100);
+}
+```
+
+```
+ 76%|████████████████████████                | 76/100 [00:33<00:10, 2.30%/s]
+```
+
+### With a description
+
+```js
+for (let i = 1; i <= total; i++) {
+  await doWork(i);
+  logpct((i / total) * 100, "Downloading");
+}
+```
+
+```
+Downloading:  76%|██████████████████          | 76/100 [00:33<00:10, 2.30%/s]
+```
+
+The progress bar automatically adapts its width to fit your terminal. When `percentage` reaches 100, a newline is printed so subsequent output appears on a fresh line. A new session starts automatically whenever `percentage` drops below the previously logged value.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+[MIT](LICENSE)

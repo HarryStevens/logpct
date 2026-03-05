@@ -1,9 +1,13 @@
 {
   "name": "logpct",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "A percent status logger for Node.js",
-  "main": "index.js",
+  "type": "module",
+  "exports": "./index.js",
   "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
     "test": "node test"
   },
   "repository": {
@@ -21,5 +25,14 @@
   "bugs": {
     "url": "https://github.com/HarryStevens/logpct/issues"
   },
-  "homepage": "https://github.com/HarryStevens/logpct#readme"
+  "homepage": "https://github.com/HarryStevens/logpct#readme",
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "conventional-changelog-conventionalcommits": "^9.3.0",
+    "eslint": "^10.0.2",
+    "globals": "^17.4.0",
+    "prettier": "^3.8.1",
+    "semantic-release": "^24.2.9"
+  }
 }

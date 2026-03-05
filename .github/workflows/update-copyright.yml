@@ -1,0 +1,31 @@
+name: Update Copyright Year
+
+on:
+  schedule:
+    - cron: "0 0 1 1 *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-copyright:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update year in LICENSE
+        id: year
+        run: |
+          YEAR=$(date +%Y)
+          echo "year=$YEAR" >> "$GITHUB_OUTPUT"
+          sed -i "s/Copyright (c) 2020-[0-9]\{4\}/Copyright (c) 2020-$YEAR/" LICENSE
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore: update copyright year to ${{ steps.year.outputs.year }}"
+          title: "chore: update copyright year"
+          body: "Automated PR to update the copyright year in LICENSE."
+          branch: chore/update-copyright-year
