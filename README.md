@@ -16,19 +16,21 @@ npm i logpct
 import logpct from "logpct";
 ```
 
-### `logpct(percentage, description?)`
+### `logpct(percentage, total?, description?)`
 
-| Parameter     | Type   | Required | Description                               |
-| ------------- | ------ | -------- | ----------------------------------------- |
-| `percentage`  | number | yes      | Progress value between 0 and 100.         |
-| `description` | string | no       | Label prepended to the bar when provided. |
+| Parameter     | Type   | Required | Description                                                                |
+| ------------- | ------ | -------- | -------------------------------------------------------------------------- |
+| `percentage`  | number | yes      | Progress value between 0 and 100.                                          |
+| `total`       | number | no       | Total item count. Enables real counts (`375/500`) and speed (`it/s`).      |
+| `description` | string | no       | Label prepended to the bar. Can be passed as the second or third argument. |
+
+The second argument is detected by type: a **number** is interpreted as `total`, a **string** as `description`.
 
 ### Basic
 
-```js
-import logpct from "logpct";
+When `total` and `description` are omitted, the fraction and speed are left out — only the percentage, bar, elapsed time, and ETA are shown.
 
-const total = 500;
+```js
 for (let i = 1; i <= total; i++) {
   await doWork(i);
   logpct((i / total) * 100);
@@ -36,7 +38,25 @@ for (let i = 1; i <= total; i++) {
 ```
 
 ```
- 76%|████████████████████████                | 456/500 [00:33<00:10, 2.30%/s]
+ 75%|████████████████████████                        | [00:33<00:10]
+```
+
+The progress bar automatically adapts its width to fit your terminal. When `percentage` reaches 100, a newline is printed so subsequent output appears on a fresh line. A new session starts automatically whenever `percentage` drops below the previously logged value.
+
+### With total
+
+```js
+import logpct from "logpct";
+
+const total = 500;
+for (let i = 1; i <= total; i++) {
+  await doWork(i);
+  logpct((i / total) * 100, total);
+}
+```
+
+```
+ 75%|████████████████████████                | 375/500 [00:33<00:10, 11.36it/s]
 ```
 
 ### With a description
@@ -44,15 +64,15 @@ for (let i = 1; i <= total; i++) {
 ```js
 for (let i = 1; i <= total; i++) {
   await doWork(i);
-  logpct((i / total) * 100, "Downloading");
+  logpct((i / total) * 100, total, "Downloading");
 }
 ```
 
 ```
-Downloading:  76%|██████████████████          | 456/500 [00:33<00:10, 2.30%/s]
+Downloading:  75%|██████████████████          | 375/500 [00:33<00:10, 11.36it/s]
 ```
 
-The progress bar automatically adapts its width to fit your terminal. When `percentage` reaches 100, a newline is printed so subsequent output appears on a fresh line. A new session starts automatically whenever `percentage` drops below the previously logged value.
+Description may be used with or without total.
 
 ## Contributing
 

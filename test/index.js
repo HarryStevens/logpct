@@ -1,16 +1,16 @@
 import assert from "node:assert";
 import logpct from "../index.js";
 
-// --- Visual smoke tests (existing) ---
+// --- Visual smoke tests ---
 
 const length = 1e5;
 
 for (let i = 0; i < length; i++) {
-  logpct(((i + 1) / length) * 100);
+  logpct(((i + 1) / length) * 100, length);
 }
 
 for (let i = 0; i < length; i++) {
-  logpct(((i + 1) / length) * 100, "Processing");
+  logpct(((i + 1) / length) * 100, length, "Processing");
 }
 
 // --- Edge-case assertion tests ---
@@ -35,6 +35,15 @@ assert.doesNotThrow(
 assert.doesNotThrow(
   () => logpct(0, "Restart"),
   "resetting to 0 with description should not throw",
+);
+
+assert.doesNotThrow(
+  () => logpct(50, 200),
+  "total without description should not throw",
+);
+assert.doesNotThrow(
+  () => logpct(50, 200, "Test"),
+  "total with description should not throw",
 );
 
 console.log("\nAll assertions passed.");
